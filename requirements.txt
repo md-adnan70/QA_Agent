@@ -4,6 +4,7 @@ langchain-google-genai
 langchain
 langchain-community
 langchain-core
+langchain_groq
 
 # PDF Parsing
 pymupdf
@@ -19,3 +20,9 @@ arxiv
 
 # For environment variables
 python-dotenv
+
+
+#For backend
+fastapi
+uvicorn[standard]
+requests
