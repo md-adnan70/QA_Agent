@@ -1,0 +1,21 @@
+# Core LLM and API libraries
+google-generativeai
+langchain-google-genai
+langchain
+langchain-community
+langchain-core
+
+# PDF Parsing
+pymupdf
+
+# Vector Database
+chromadb
+
+# Embedding Model (Sentence Transformers are great for local/free use)
+sentence-transformers
+
+# Arxiv API Library
+arxiv
+
+# For environment variables
+python-dotenv
