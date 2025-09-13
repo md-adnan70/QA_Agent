@@ -3,13 +3,10 @@ import os
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 from langchain.tools import Tool
-from langchain.agents import create_react_agent, AgentExecutor
-from langchain import hub
 import arxiv
 
 # --- Configuration ---
