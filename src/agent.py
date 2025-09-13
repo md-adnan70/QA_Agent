@@ -1,7 +1,6 @@
 # agent.py
 import os
 from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_groq import ChatGroq
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -83,44 +82,3 @@ def setup_arxiv_tool():
         description="Use this tool to find academic papers on the Arxiv repository when a user asks about a paper you cannot find in the local documents. Input should be a search query like a paper title or topic."
     )
 
-def main():
-    """Main function to run the Q&A agent."""
-    print("🤖 Initializing AI Agent...")
-
-    llm = initialize_llm()
-
-    # Initialize embeddings (must be the same as in ingest.py)
-    embedding_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-
-    # Create the two main tools for our agent
-    rag_retriever = create_rag_retriever(embedding_model)
-    rag_chain = create_rag_chain(llm, rag_retriever)
-
-    tools = [
-        Tool(
-            name="DocumentQA",
-            func=rag_chain.invoke,
-            description="Use this tool to answer questions about the content of the uploaded PDF documents. This should be your default choice for questions about methodology, conclusions, or specific results from the documents."
-        ),
-        setup_arxiv_tool()
-    ]
-
-    # Use a pre-built prompt for the ReAct agent framework
-    prompt = hub.pull("hwchase17/react")
-
-    # Create the agent
-    agent = create_react_agent(llm, tools, prompt)
-    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
-
-    print("✅ Agent is ready! Ask your questions. Type 'exit' to quit.")
-
-    while True:
-        query = input("You: ")
-        if query.lower() == 'exit':
-            break
-        
-        response = agent_executor.invoke({"input": query})
-        print(f"Agent: {response['output']}")
-
-if __name__ == "__main__":
-    main()
