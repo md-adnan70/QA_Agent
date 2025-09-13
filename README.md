@@ -15,6 +15,11 @@ This project implements a sophisticated AI agent, delivered as a web application
 
 ---
 
+
+
+![alt text](image.png)
+
+
 ## Architecture
 
 The system is built on a modern two-tier architecture, separating the user interface from the core AI logic.
