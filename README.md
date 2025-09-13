@@ -19,14 +19,20 @@ This project implements a sophisticated AI agent, delivered as a web application
 
 The system is built on a modern two-tier architecture, separating the user interface from the core AI logic.
 
+1.  **Ingestion:** PDFs in the `/data` folder are parsed, chunked, and stored as vector embeddings in a ChromaDB database.
 
+2.  **Agent Logic:** A LangChain agent is equipped with two tools:
 
-1.  **FastAPI Backend:** A robust server that exposes API endpoints for file uploading and querying. It handles all core logic, including:
+    -   `DocumentQA`: A RAG chain that retrieves relevant text from the vector store to answer questions.
+
+    -   `ArxivSearch`: A tool that queries the official Arxiv API.
+
+3.  **FastAPI Backend:** A robust server that exposes API endpoints for file uploading and querying. It handles all core logic, including:
     * Processing uploaded PDFs on-the-fly.
-    * Creating session-specific, in-memory vector stores using FAISS to ensure user data is isolated.
+    * Creating session-specific, in-memory vector stores using chromadb to ensure user data is isolated.
     * Dynamically creating a LangChain agent for each query with the appropriate tools (`DocumentQA` and `ArxivSearch`).
 
-2.  **Streamlit Frontend:** An interactive and user-friendly web interface that allows users to:
+4.  **Streamlit Frontend:** An interactive and user-friendly web interface that allows users to:
     * Upload PDF documents through a simple file-picker.
     * Engage in a conversation with the AI agent through a chat window.
     * Communicate with the FastAPI backend via HTTP requests.
@@ -37,15 +43,15 @@ The system is built on a modern two-tier architecture, separating the user inter
 
 ### Prerequisites
 
--   Python 3.9+
--   A Google AI API Key
+-   Python 3.10
+-   A Groq Inference API key
 
 ### Installation Steps
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repo-link>
-    cd document-qna-agent
+    git clone https://github.com/md-adnan70/QA_Agent.git
+    cd QA_Agent
     ```
 
 2.  **Create a virtual environment:**
@@ -61,9 +67,9 @@ The system is built on a modern two-tier architecture, separating the user inter
 
 4.  **Set up environment variables:**
     -   Create a file named `.env` in the root directory.
-    -   Add your Google API key to it:
+    -   Add your GROW API key to it:
         ```
-        GOOGLE_API_KEY="your_google_api_key_here"
+        GROQ_API_KEY="your_google_api_key_here"
         ```
 
 ---
